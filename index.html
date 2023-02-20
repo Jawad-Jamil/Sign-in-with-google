@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="526100777255-89pva5vtmetpj1o1q7a7jkig1v1d1dea.apps.googleusercontent.com">
+    <title>Sign With</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+    <h2>Sign in With</h2>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    
+
+    <div class="result">
+        <P class="name"></P>
+        <P class="id"></P>
+        <P class="mail"></P>
+        <img class="img"></img>
+    </div>
+
+    <a href="#" onclick="signOut();">Sign out</a>
+    
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="script.js"></script>
+</body>
+</html>
