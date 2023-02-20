@@ -10,7 +10,7 @@ function onSignIn(googleUser) {
     id.innerHTML= `ID: ${profile.getId()}`
     mail.innerHTML= `Email: ${profile.getEmail()}`
 
-    img.src= `Name: ${profile.get()}`
+    img.src= `${profile.get()}`
 
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
