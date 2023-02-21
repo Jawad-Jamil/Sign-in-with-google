@@ -9,6 +9,8 @@ let out = document.getElementById("out")
 let info = document.getElementById("info")
 
 
+
+// Show All Data in Web from localStorage
 function show_L_data() {
   if (localStorage.getItem("infos")) {
     let infosLparse = JSON.parse(localStorage.getItem("infos"))
@@ -35,7 +37,10 @@ function show_L_data() {
 window.addEventListener("load",show_L_data())
 
 
+
+// Sign in // Sign in // Sign in // Sign in
 function handleCredentialResponse(response) {
+
   // decodeJwtResponse() is a custom function defined by you
   // to decode the credential response.
   const responsePayload = decodeJwtResponse(response.credential);
@@ -54,7 +59,6 @@ function handleCredentialResponse(response) {
   localStorage.setItem("infos",infosL)
 
   show_L_data()
-
 }
 
 
@@ -64,16 +68,10 @@ function decodeJwtResponse(data) {
   return JSON.parse(atob(tokens[1]))
 }
 
-
-function signOut() {
-  // var auth2 = gapi.auth2.getAuthInstance();
-  // auth2.signOut().then(function () {
-    localStorage.clear()
-    info.classList.add("d-none")
-    sign.classList.remove("d-none")
-    out.classList.add("d-none")
-  // });
-}
-
-
-out.addEventListener("click", signOut)
+// Sign Out
+out.addEventListener("click", ()=>{
+  localStorage.clear()
+  info.classList.add("d-none")
+  sign.classList.remove("d-none")
+  out.classList.add("d-none")
+})
