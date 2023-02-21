@@ -1,43 +1,79 @@
+let fullname = document.getElementById("fullname")
+let first = document.getElementById("first")
+let last = document.getElementById("last")
+let mail = document.getElementById("email")
+let photo = document.getElementById("photo")
+let id_num = document.getElementById("id_num")
+let sign = document.getElementById("sign")
+let out = document.getElementById("out")
+let info = document.getElementById("info")
+
+
+function show_L_data() {
+  if (localStorage.getItem("infos")) {
+    let infosLparse = JSON.parse(localStorage.getItem("infos"))
+ 
+    info.classList.remove("d-none")
+    sign.classList.add("d-none")
+    out.classList.remove("d-none")
+ 
+    fullname.innerHTML = infosLparse.fullnameL
+    photo.src = infosLparse.photo_linkL
+    first.innerHTML = infosLparse.firstL
+    last.innerHTML = infosLparse.lastL
+    mail.innerHTML = infosLparse.mailL
+    id_num.innerHTML = infosLparse.id_numL
+    
+  } else {
+    info.classList.add("d-none")
+    sign.classList.remove("d-none")
+    out.classList.add("d-none")
+  }
+ 
+}
+
+window.addEventListener("load",show_L_data())
+
+
 function handleCredentialResponse(response) {
   // decodeJwtResponse() is a custom function defined by you
   // to decode the credential response.
   const responsePayload = decodeJwtResponse(response.credential);
-  let fullname = document.getElementById("fullname")
-  let first = document.getElementById("first")
-  let last = document.getElementById("last")
-  let mail = document.getElementById("email")
-  let photo = document.getElementById("photo")
-  let id_num = document.getElementById("id_num")
-  let sign = document.getElementById("sign");
-  let out = document.getElementById("out");
-  let info = document.getElementById("info");
-  let photo_link = responsePayload.picture;
 
-  info.classList.remove("d-none");
-  fullname.innerHTML = `${responsePayload.name}`;
-  photo.src = photo_link;
-  first.innerHTML = `${responsePayload.given_name}`;
-  last.innerHTML = `${responsePayload.family_name}`;
-  mail.innerHTML = `${responsePayload.email}`;
-  id_num.innerHTML = `${responsePayload.sub}`;
+  let infos = {
+    fullnameL: responsePayload.name,
+    photo_linkL: responsePayload.picture,
+    firstL: responsePayload.given_name,
+    lastL: responsePayload.family_name,
+    mailL: responsePayload.email,
+    id_numL: responsePayload.sub
+  }
 
-  sign.classList.add("d-none");
-  out.classList.remove("d-none");
+  let infosL = JSON.stringify(infos)
+
+  localStorage.setItem("infos",infosL)
+
+  show_L_data()
 
 }
 
+
+// decodeJwtResponse()
 function decodeJwtResponse(data) {
   let tokens = data.split(".");
   return JSON.parse(atob(tokens[1]))
 }
 
+
 function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    console.log('User signed out.');
-  });
+  // var auth2 = gapi.auth2.getAuthInstance();
+  // auth2.signOut().then(function () {
+    localStorage.clear()
+    info.classList.add("d-none")
+    sign.classList.remove("d-none")
+    out.classList.add("d-none")
+  // });
 }
 
+
 out.addEventListener("click", signOut)
-
-
